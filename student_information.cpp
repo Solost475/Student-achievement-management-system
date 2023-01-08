@@ -422,11 +422,89 @@ void Teacher_find()
     system("pause");
 }
 
+void Save_data()
+{
+    ofstream student_Grade_file, student_information_file, teacher_information_file;
+    student_Grade_file.open("student_Grade_file.txt", ios::out);
+    for (auto x : student_Grade) {
+        student_Grade_file << x.id << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
+    }
+    student_Grade_file.close();
+    // string name, gender, id, major, phone, address, age, classes;
+
+    student_information_file.open("student_information_file.txt", ios::out);
+    for (auto x : student_information) {
+        student_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
+    }
+    student_information_file.close();
+
+    teacher_information_file.open("teacher_information_file.txt", ios::out);
+    for (auto x : teacher_information) {
+        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
+    }
+    teacher_information_file.close();
+}
+
+void Read_data()
+{
+    ifstream student_Grade_file, student_information_file, teacher_information_file;
+    student_Grade_file.open("student_Grade_file.txt", ios::in);
+    if (!student_Grade_file) {
+        cout << "fail to open the student_Grade_file.txt" << endl;
+        system("pause");
+        return;
+    } else {
+        cout << "open the file successfully" << endl;
+    }
+    while (student_Grade_file.peek() != EOF) {
+        string id;
+        int chinese, math, english, sum;
+        student_Grade_file >> id >> chinese >> math >> english >> sum;
+        Student_Grade stu(id);
+        student_Grade.push_back(stu);
+    }
+    student_Grade_file.close();
+    // string name, gender, id, major, phone, address, age, classes;
+
+
+    student_information_file.open("student_information_file.txt", ios::in);
+    if (!student_information_file) {
+        cout << "fail to open the student_information_file.txt" << endl;
+        system("pause");
+        return;
+    } else {
+        cout << "open the file successfully" << endl;
+    }
+    while (student_information_file.peek() != EOF) {
+        Student_Information stu;
+        student_information_file >> stu.name >> stu.gender >> stu.id >> stu.major >> stu.phone >> stu.address >> stu.age >> stu.classes;
+        student_information.push_back(stu);
+    }
+    student_information_file.close();
+
+
+    teacher_information_file.open("teacher_information_file.txt", ios::in);
+    if (!teacher_information_file) {
+        cout << "fail to open the teacher_information_file.txt" << endl;
+        system("pause");
+        return;
+    } else {
+        cout << "open the file successfully" << endl;
+    }
+    while (teacher_information_file.peek() != EOF) {
+        Teacher_Information teacher;
+        teacher_information_file >> teacher.name >> teacher.gender >> teacher.id >> teacher.major >> teacher.phone >> teacher.address >> teacher.age >> teacher.classes;
+        teacher_information.push_back(teacher);
+    }
+    teacher_information_file.close();
+
+}
+
 void menu()
 {
 
     cout << "*===============================================================================================*" << endl;
-    cout << "**&&&&&&&&&&&&&&& welcome to use the student information management system &&&&&&&&&&&&&&&&&&&&**" << endl;
+    cout << "**&&&&&&&&&&&&&&&welcome to use the student information management system&&&&& &&&&&&&&&&&&&&&&**" << endl;
     cout << "**                        0: exit                                                              **" << endl;
     cout << "**                        1: Input student information                                         **" << endl;
     cout << "**                        2: Add student information                                           **" << endl;
@@ -441,6 +519,7 @@ void menu()
     cout << "**                        11: Find teacher information                                         **" << endl;
     cout << "**                        12: Display all the student information                              **" << endl;
     cout << "**                        13: Modify student grade                                             **" << endl;
+    cout << "**                        14: Save data                                                        **" << endl;
     cout << "**&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&**" << endl;
     cout << "*===============================================================================================*" << endl;
 
@@ -491,6 +570,9 @@ void menu()
     case 13:
         Student_grade_change();
         break;
+    case 14:
+        Save_data();
+        break;
     default:
         printf("Invalid input!\n");
         system("pause");
@@ -498,6 +580,7 @@ void menu()
 }
 int main()
 {
+    Read_data();
     while (1) {
         menu();
     }
