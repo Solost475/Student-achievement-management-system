@@ -426,7 +426,7 @@ void menu()
 {
 
     cout << "*===============================================================================================*" << endl;
-    cout << "**&&&&&&&&&&&&&&&welcome to use the student information management system&&&&& &&&&&&&&&&&&&&&&**" << endl;
+    cout << "**&&&&&&&&&&&&&&& welcome to use the student information management system &&&&&&&&&&&&&&&&&&&&**" << endl;
     cout << "**                        0: exit                                                              **" << endl;
     cout << "**                        1: Input student information                                         **" << endl;
     cout << "**                        2: Add student information                                           **" << endl;
