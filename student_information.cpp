@@ -21,9 +21,8 @@ class Student_Grade {
 public:
     string id;
     int chinese, english, math, sum;
-    Student_Grade(string ID)
+    Student_Grade()
     {
-        id = ID;
         cout << "Please enter the grade of Chinese math English:\n";
         cin >> chinese >> math >> english;
         cout << "Enter successfully\n";
@@ -60,8 +59,9 @@ public:
     {
         cout << "name gender id major phone address age class:\n";
         cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
-        Student_Grade stu(id);
-        student_Grade.push_back(id);
+        Student_Grade stu;
+        stu.id = id;
+        student_Grade.push_back(stu);
     }
     void output()
     {
@@ -460,7 +460,8 @@ void Read_data()
         string id;
         int chinese, math, english, sum;
         student_Grade_file >> id >> chinese >> math >> english >> sum;
-        Student_Grade stu(id);
+        Student_Grade stu;
+        stu.id = id, stu.chinese = chinese, stu.math = math, stu.english = english, stu.sum = sum;
         student_Grade.push_back(stu);
     }
     student_Grade_file.close();
@@ -580,6 +581,7 @@ void menu()
 }
 int main()
 {
+    cout << "If there is no initial data, proceed and the file is automatically created\n";
     Read_data();
     while (1) {
         menu();
