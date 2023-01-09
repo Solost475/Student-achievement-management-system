@@ -315,11 +315,11 @@ void Student_qualified()
 {
     int c1 = 0, c2 = 0, c3 = 0, n = student_Grade.size();
     for (auto x : student_Grade) {
-        if (x.chinese < 60)
+        if (x.chinese >= 60)
             c1++;
-        if (x.math < 60)
+        if (x.math >= 60)
             c2++;
-        if (x.english < 60)
+        if (x.english >= 60)
             c3++;
     }
     cout << "Chinese pass rate:" << c1 / n * 100 << "%\n";
