@@ -19,7 +19,7 @@ using namespace std;
 class Student_Grade {
 
 public:
-    string id;
+    string id, name;
     int chinese, english, math, sum;
     Student_Grade()
     {
@@ -61,6 +61,7 @@ public:
         cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
         Student_Grade stu;
         stu.id = id;
+        stu.name = name;
         student_Grade.push_back(stu);
     }
     void output()
@@ -284,6 +285,13 @@ void Student_change()
     system("pause");
 }
 
+void Student_grade_display(){
+    cout << "name sum chinese math english\n";
+    for(auto x : student_Grade) {
+        cout << x.name << " " << x.id << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
+    }
+}
+
 void Student_sort()
 {
     cout << "Please enter the information you want to rank according to:\n";
@@ -308,6 +316,7 @@ void Student_sort()
         break;
     }
     cout << "Sort success!\n";
+    Student_grade_display();
     system("pause");
 }
 
@@ -365,7 +374,16 @@ void Student_grade_change()
     for (auto i = student_Grade.begin(); i != student_Grade.end(); i++) {
         if (i->id == id) {
             f = 1;
-            i->Student_grade_change();
+            int x;
+            system("cls");
+            cout << "1.change grade\n2.delete grade\n";
+            cin >> x;
+            if(x == 1)
+                i->Student_grade_change();
+            else{
+                student_Grade.erase(i);
+                cout << "Deleted successfully!\n";
+            }
             break;
         }
     }
@@ -427,7 +445,7 @@ void Save_data()
     ofstream student_Grade_file, student_information_file, teacher_information_file;
     student_Grade_file.open("student_Grade_file.txt", ios::out);
     for (auto x : student_Grade) {
-        student_Grade_file << x.id << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
+        student_Grade_file << x.id  << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
     }
     student_Grade_file.close();
     // string name, gender, id, major, phone, address, age, classes;
@@ -457,11 +475,11 @@ void Read_data()
         cout << "open the file successfully" << endl;
     }
     while (student_Grade_file.peek() != EOF) {
-        string id;
+        string id, name;
         int chinese, math, english, sum;
-        student_Grade_file >> id >> chinese >> math >> english >> sum;
+        student_Grade_file >> id >> name >> chinese >> math >> english >> sum;
         Student_Grade stu;
-        stu.id = id, stu.chinese = chinese, stu.math = math, stu.english = english, stu.sum = sum;
+        stu.id = id, stu.name = name, stu.chinese = chinese, stu.math = math, stu.english = english, stu.sum = sum;
         student_Grade.push_back(stu);
     }
     student_Grade_file.close();
@@ -521,6 +539,7 @@ void menu()
     cout << "**                        12: Display all the student information                              **" << endl;
     cout << "**                        13: Modify student grade                                             **" << endl;
     cout << "**                        14: Save data                                                        **" << endl;
+    cout << "**                        15: Display student grade                                            **" << endl;
     cout << "**&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&**" << endl;
     cout << "*===============================================================================================*" << endl;
 
@@ -573,6 +592,9 @@ void menu()
         break;
     case 14:
         Save_data();
+        break;
+    case 15:
+        Student_grade_display();
         break;
     default:
         printf("Invalid input!\n");
