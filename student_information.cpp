@@ -28,7 +28,13 @@ public:
         cout << "Enter successfully\n";
         sum = chinese + math + english;
     }
-    void Student_grade_change()
+
+    void output(){
+        cout << "name chinese math english:\n";
+        cout << name << " " << chinese << " " << math << " " << english << endl;
+    }
+
+    void student_grade_change()
     {
         int x;
         cout << "1.chinese grade" << endl;
@@ -343,7 +349,7 @@ void Student_information()
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = student_information.begin(); i != student_information.end(); i++) {
+    for (auto i = student_Grade.begin(); i != student_Grade.end(); i++) {
         if (i->id == id) {
             f = 1;
             i->output();
@@ -379,7 +385,7 @@ void Student_grade_change()
             cout << "1.change grade\n2.delete grade\n";
             cin >> x;
             if(x == 1)
-                i->Student_grade_change();
+                i->student_grade_change();
             else{
                 student_Grade.erase(i);
                 cout << "Deleted successfully!\n";
