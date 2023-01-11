@@ -57,8 +57,8 @@ class Student_Information {
 public:
     virtual void input()
     {
-        cout << "name gender id major phone address age class:\n";
-        cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
+        cout << "id name gender major phone address age class:\n";
+        cin >> id >> name >> gender >> major >> phone >> address >> age >> classes;
         Student_Grade stu;
         cout << "Please enter the grade Chinese math English:\n";
         cin >> stu.chinese >> stu.math >> stu.english;
@@ -532,8 +532,35 @@ void Teacher_information_All()
     system("pause");
 }
 
+void op(string local)
+{
+    ifstream read;
+    read.open(local, ios::in);
+    ofstream write;
+    write.open("1.txt", ios::out | ios::trunc);
+    vector<string> q;
+    string s;
+    while(getline(read, s)){
+    	int n = s.size();
+    	if(n == 0) continue;
+    	q.push_back(s);
+    }
+    int n = q.size();
+    for(int i = 0; i < n; i++){
+    	write << q[i];
+    	if(i != n - 1){
+    		write << endl;
+    	}
+    }
+    read.close();
+    write.close();
+}
+
 void Read_data()
 {
+    // op("student_Grade_file.txt");
+    // op("student_information_file.txt");
+    // op("teacher_information_file.txt");
     ifstream student_Grade_file, student_information_file, teacher_information_file;
     student_Grade_file.open("student_Grade_file.txt", ios::in);
     if (!student_Grade_file) {
@@ -550,6 +577,7 @@ void Read_data()
         stu.id = id, stu.name = name, stu.chinese = chinese, stu.math = math, stu.english = english, stu.sum = sum;
         student_Grade.push_back(stu);
     }
+    student_Grade.pop_back();
     student_Grade_file.close();
     // string name, gender, id, major, phone, address, age, classes;
 
