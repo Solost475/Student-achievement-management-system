@@ -159,7 +159,7 @@ public:
         cout << "phone:" << phone << endl;
         cout << "address:" << address << endl;
         cout << "age:" << age << endl;
-        cout << "class:";
+        cout << "class: ";
         for (auto x : Teacher_Information::classes) {
             cout << x << " ";
         }
@@ -170,7 +170,7 @@ public:
     {
         cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age << " ";
         for (auto x : Teacher_Information::classes) {
-            cout << x << ",";
+            cout << x << ", ";
         }
         cout << endl;
     }
@@ -179,6 +179,7 @@ public:
         int j = 1, x;
         for(auto i = Teacher_Information::classes.begin(); i != Teacher_Information::classes.end(); i++){
             cout << j << " " << *i << endl;
+            j++;
         }
         cout << "Please enter delete classes:\n";
         cin >> x;
@@ -191,7 +192,6 @@ public:
             }
             j++;
         }
-        system("pause");
     }
 
     virtual void change()
@@ -582,7 +582,8 @@ void Read_data()
         Teacher_Information teacher;
         string class1;
         teacher_information_file >> teacher.name >> teacher.gender >> teacher.id >> teacher.major >> teacher.phone >> teacher.address >> teacher.age;
-        while(cin.get() != '\n' && cin >> class1){
+        while(teacher_information_file >> class1){
+            if(teacher_information_file.get() == '\n') break;
             teacher.Teacher_Information::classes.push_back(class1);
         }
         teacher_information.push_back(teacher);
@@ -609,7 +610,7 @@ void Save_data()
     teacher_information_file.open("teacher_information_file.txt", ios::out);
     string class1;
     for (auto x : teacher_information) {
-        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " ";
+        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.address << " " << x.age << " ";
         for(auto y : x.Teacher_Information::classes){
             teacher_information_file << y << " ";
         }
@@ -716,6 +717,7 @@ void menu()
         printf("Invalid input!\n");
         system("pause");
     }
+    
 }
 int main()
 {
