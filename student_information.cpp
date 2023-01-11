@@ -611,9 +611,9 @@ void Save_data()
     for (auto x : teacher_information) {
         teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " ";
         for(auto y : x.Teacher_Information::classes){
-            cout << y << " ";
+            teacher_information_file << y << " ";
         }
-        cout << endl;
+        teacher_information_file << endl;
     }
     teacher_information_file.close();
 
