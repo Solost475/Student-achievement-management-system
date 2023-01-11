@@ -524,25 +524,6 @@ void Teacher_change()
     system("pause");
 }
 
-void Teacher_information()
-{
-    cout << "Please enter your teacher id\n";
-    string id;
-    cin >> id;
-    int f = 0;
-    for (auto i = student_Grade.begin(); i != student_Grade.end(); i++) {
-        if (i->id == id) {
-            f = 1;
-            i->output();
-            break;
-        }
-    }
-    if (f == 0) {
-        cout << "Failed to find the teacher information\n";
-    }
-    system("pause");
-}
-
 void Teacher_information_All()
 {
     cout << "name gender id major phone address age classes:\n";
@@ -664,9 +645,8 @@ void menu()
     cout << "**                        14: Delete teacher information                                       **" << endl;
     cout << "**                        15: Find teacher information                                         **" << endl;
     cout << "**                        16: Modify teacher information                                       **" << endl;
-    cout << "**                        17: Display teacher information                                      **" << endl;
-    cout << "**                        18: Display all the teacher information                              **" << endl;
-    cout << "**                        19: Save data                                                        **" << endl;
+    cout << "**                        17: Display all the teacher information                              **" << endl;
+    cout << "**                        18: Save data                                                        **" << endl;
     cout << "**&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&**" << endl;
     cout << "*===============================================================================================*" << endl;
 
@@ -727,12 +707,9 @@ void menu()
         Teacher_change();
         break;
     case 17:
-        Teacher_information();
-        break;
-    case 18:
         Teacher_information_All();
         break;
-    case 19:
+    case 18:
         Save_data();
         break;
     default:
