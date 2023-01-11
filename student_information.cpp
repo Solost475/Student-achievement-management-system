@@ -29,7 +29,8 @@ public:
         sum = chinese + math + english;
     }
 
-    void output(){
+    void output()
+    {
         cout << "name chinese math english:\n";
         cout << name << " " << chinese << " " << math << " " << english << endl;
     }
@@ -61,7 +62,7 @@ vector<Student_Grade> student_Grade;
 
 class Student_Information {
 public:
-    void input()
+    virtual void input()
     {
         cout << "name gender id major phone address age class:\n";
         cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
@@ -70,7 +71,7 @@ public:
         stu.name = name;
         student_Grade.push_back(stu);
     }
-    void output()
+    virtual void output()
     {
         cout << "name:" << name << endl;
         cout << "gender:" << gender << endl;
@@ -82,12 +83,12 @@ public:
         cout << "class:" << classes << endl;
     }
 
-    void output_all()
+    virtual void output_all()
     {
         cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age << " " << classes << endl;
     }
 
-    void change()
+    virtual void change()
     {
         int x;
         cout << "Please enter the information number you want to modify:\n";
@@ -138,15 +139,18 @@ public:
     string name, gender, id, major, phone, address, age, classes;
 };
 
-class Teacher_Information {
-
+class Teacher_Information : public Student_Information {
 public:
-    void input()
+    vector<string> classes;
+
+    virtual void input()
     {
-        cout << "name gender id major phone address age class:\n";
-        cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
+        cout << "name gender id major phone address age:\n";
+        string class1;
+        cin >> name >> gender >> id >> major >> phone >> address >> age >> class1;
+        Teacher_Information::classes.push_back(class1);
     }
-    void output()
+    virtual void output()
     {
         cout << "name:" << name << endl;
         cout << "gender:" << gender << endl;
@@ -155,10 +159,42 @@ public:
         cout << "phone:" << phone << endl;
         cout << "address:" << address << endl;
         cout << "age:" << age << endl;
-        cout << "class:" << classes << endl;
+        cout << "class:";
+        for (auto x : Teacher_Information::classes) {
+            cout << x << " ";
+        }
+        cout << endl;
     }
 
-    void change()
+    virtual void output_all()
+    {
+        cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age << " ";
+        for (auto x : Teacher_Information::classes) {
+            cout << x << " ";
+        }
+        cout << endl;
+    }
+
+    virtual void class_delete(){
+        int j = 1, x;
+        for(auto i = Teacher_Information::classes.begin(); i != Teacher_Information::classes.end(); i++){
+            cout << j << " " << *i << endl;
+        }
+        cout << "Please enter delete classes:\n";
+        cin >> x;
+        j = 1;
+        for(auto i = Teacher_Information::classes.begin(); i != Teacher_Information::classes.end(); i++){
+            if(x == j){
+                Teacher_Information::classes.erase(i);
+                cout << "successflly delete class!\n";
+                break;
+            }
+            j++;
+        }
+        system("pause");
+    }
+
+    virtual void change()
     {
         int x;
         cout << "Please enter the information number you want to modify:\n";
@@ -169,7 +205,8 @@ public:
         cout << "5.phone" << endl;
         cout << "6.address" << endl;
         cout << "7.age" << endl;
-        cout << "8.class" << endl;
+        cout << "8.add class" << endl;
+        cout << "9.delete class" << endl;
         cin >> x;
         switch (x) {
         case 1:
@@ -200,13 +237,20 @@ public:
             cout << "Please enter your modified age:\n";
             cin >> age;
             break;
-        case 8:
+        case 8: {
             cout << "Please enter your modified classes:\n";
-            cin >> classes;
+            string class1;
+            cin >> class1;
+            Teacher_Information::classes.push_back(class1);
             break;
         }
+        case 9: {
+            cout << "Please enter delete classes:\n";
+            class_delete();
+            break;
+        }
+        }
     }
-    string name, gender, id, major, phone, address, age, classes;
 };
 
 vector<Student_Information> student_information;
@@ -291,9 +335,10 @@ void Student_change()
     system("pause");
 }
 
-void Student_grade_display(){
+void Student_grade_display()
+{
     cout << "name sum chinese math english\n";
-    for(auto x : student_Grade) {
+    for (auto x : student_Grade) {
         cout << x.name << " " << x.id << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
     }
 }
@@ -384,9 +429,9 @@ void Student_grade_change()
             system("cls");
             cout << "1.change grade\n2.delete grade\n";
             cin >> x;
-            if(x == 1)
+            if (x == 1)
                 i->student_grade_change();
-            else{
+            else {
                 student_Grade.erase(i);
                 cout << "Deleted successfully!\n";
             }
@@ -399,6 +444,20 @@ void Student_grade_change()
     system("pause");
 }
 
+void Teacher_input()
+{
+    Teacher_Information teacher;
+    cout << "Please enter the number of teacher information you want to enter:\n";
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        teacher.input();
+        teacher_information.push_back(teacher);
+    }
+    cout << "Teacher information added successfully!\n";
+    system("pause");
+}
+
 void Teacher_add()
 {
     Teacher_Information teacher;
@@ -408,7 +467,7 @@ void Teacher_add()
     system("pause");
 }
 
-void Teacher_change()
+void Teacher_delete()
 {
     cout << "Please enter your teacher id\n";
     string id;
@@ -417,12 +476,12 @@ void Teacher_change()
     for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
         if (i->id == id) {
             f = 1;
-            i->change();
-            cout << "Succeeded in modifying the information!\n";
+            cout << "The information of the teacher to be deleted has been queried\n";
+            teacher_information.erase(i);
         }
     }
     if (f == 0) {
-        cout << "Failed to find the teacher information\n";
+        cout << "Failed to delete the teacher information\n";
     }
     system("pause");
 }
@@ -446,12 +505,59 @@ void Teacher_find()
     system("pause");
 }
 
+void Teacher_change()
+{
+    cout << "Please enter your teacher id\n";
+    string id;
+    cin >> id;
+    int f = 0;
+    for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
+        if (i->id == id) {
+            f = 1;
+            i->change();
+            cout << "Succeeded in modifying the information!\n";
+        }
+    }
+    if (f == 0) {
+        cout << "Failed to find the teacher information\n";
+    }
+    system("pause");
+}
+
+void Teacher_information()
+{
+    cout << "Please enter your teacher id\n";
+    string id;
+    cin >> id;
+    int f = 0;
+    for (auto i = student_Grade.begin(); i != student_Grade.end(); i++) {
+        if (i->id == id) {
+            f = 1;
+            i->output();
+            break;
+        }
+    }
+    if (f == 0) {
+        cout << "Failed to find the teacher information\n";
+    }
+    system("pause");
+}
+
+void Teacher_information_All()
+{
+    cout << "name gender id major phone address age classes:\n";
+    for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
+        i->output_all();
+    }
+    system("pause");
+}
+
 void Save_data()
 {
     ofstream student_Grade_file, student_information_file, teacher_information_file;
     student_Grade_file.open("student_Grade_file.txt", ios::out);
     for (auto x : student_Grade) {
-        student_Grade_file << x.id  << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
+        student_Grade_file << x.id << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
     }
     student_Grade_file.close();
     // string name, gender, id, major, phone, address, age, classes;
@@ -463,10 +569,16 @@ void Save_data()
     student_information_file.close();
 
     teacher_information_file.open("teacher_information_file.txt", ios::out);
+    string class1;
     for (auto x : teacher_information) {
-        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
+        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " ";
+        for(auto y : x.Teacher_Information::classes){
+            cout << y << " ";
+        }
+        cout << endl;
     }
     teacher_information_file.close();
+
 }
 
 void Read_data()
@@ -491,7 +603,6 @@ void Read_data()
     student_Grade_file.close();
     // string name, gender, id, major, phone, address, age, classes;
 
-
     student_information_file.open("student_information_file.txt", ios::in);
     if (!student_information_file) {
         cout << "fail to open the student_information_file.txt" << endl;
@@ -507,7 +618,6 @@ void Read_data()
     }
     student_information_file.close();
 
-
     teacher_information_file.open("teacher_information_file.txt", ios::in);
     if (!teacher_information_file) {
         cout << "fail to open the teacher_information_file.txt" << endl;
@@ -518,11 +628,14 @@ void Read_data()
     }
     while (teacher_information_file.peek() != EOF) {
         Teacher_Information teacher;
-        teacher_information_file >> teacher.name >> teacher.gender >> teacher.id >> teacher.major >> teacher.phone >> teacher.address >> teacher.age >> teacher.classes;
+        string class1;
+        teacher_information_file >> teacher.name >> teacher.gender >> teacher.id >> teacher.major >> teacher.phone >> teacher.address >> teacher.age;
+        while(cin.get() != '\n' && cin >> class1){
+            teacher.Teacher_Information::classes.push_back(class1);
+        }
         teacher_information.push_back(teacher);
     }
     teacher_information_file.close();
-
 }
 
 void menu()
@@ -537,15 +650,19 @@ void menu()
     cout << "**                        4: Find student information                                          **" << endl;
     cout << "**                        5: Modify student information                                        **" << endl;
     cout << "**                        6: student achievement ranking                                       **" << endl;
-    cout << "**                        7: students queried                                                  **" << endl;
+    cout << "**                        7: show students queried                                             **" << endl;
     cout << "**                        8: Display student information                                       **" << endl;
-    cout << "**                        9: Add teacher information                                           **" << endl;
-    cout << "**                        10: Modify teacher information                                       **" << endl;
-    cout << "**                        11: Find teacher information                                         **" << endl;
-    cout << "**                        12: Display all the student information                              **" << endl;
-    cout << "**                        13: Modify student grade                                             **" << endl;
-    cout << "**                        14: Save data                                                        **" << endl;
-    cout << "**                        15: Display student grade                                            **" << endl;
+    cout << "**                        9: Display all the student information                               **" << endl;
+    cout << "**                        10: Modify student grade                                             **" << endl;
+    cout << "**                        11: Display student grade                                            **" << endl;
+    cout << "**                        12: Input teacher information                                        **" << endl;
+    cout << "**                        13: Add teacher information                                          **" << endl;
+    cout << "**                        14: Delete teacher information                                       **" << endl;
+    cout << "**                        15: Find teacher information                                         **" << endl;
+    cout << "**                        16: Modify teacher information                                       **" << endl;
+    cout << "**                        17: Display teacher information                                      **" << endl;
+    cout << "**                        18: Display all the teacher information                              **" << endl;
+    cout << "**                        19: Save data                                                        **" << endl;
     cout << "**&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&**" << endl;
     cout << "*===============================================================================================*" << endl;
 
@@ -582,25 +699,37 @@ void menu()
         Student_information();
         break;
     case 9:
-        Teacher_add();
-        break;
-    case 10:
-        Teacher_change();
-        break;
-    case 11:
-        Teacher_find();
-        break;
-    case 12:
         Student_information_All();
         break;
-    case 13:
+    case 10:
         Student_grade_change();
         break;
+    case 11:
+        Student_grade_display();
+        break;
+    case 12:
+        Teacher_input();
+        break;
+    case 13:
+        Teacher_add();
+        break;
     case 14:
-        Save_data();
+        Teacher_delete();
         break;
     case 15:
-        Student_grade_display();
+        Teacher_find();
+        break;
+    case 16:
+        Teacher_change();
+        break;
+    case 17:
+        Teacher_information();
+        break;
+    case 18:
+        Teacher_information_All();
+        break;
+    case 19:
+        Save_data();
         break;
     default:
         printf("Invalid input!\n");
