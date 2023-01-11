@@ -337,8 +337,9 @@ void Student_grade_display()
 {
     cout << "id name sum chinese math english\n";
     for (auto x : student_Grade) {
-        cout << x.id << x.name << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
+        cout << x.id << " " << x.name << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
     }
+    system("pause");
 }
 
 void Student_sort()
@@ -411,6 +412,7 @@ void Student_information_All()
     for (auto i = student_information.begin(); i != student_information.end(); i++) {
         i->output_all();
     }
+    system("pause");
 }
 
 void Student_grade_change()
@@ -588,6 +590,7 @@ void Save_data()
     ofstream student_Grade_file, student_information_file, teacher_information_file;
     student_Grade_file.open("student_Grade_file.txt", ios::out);
     for (auto x : student_Grade) {
+        //student_Grade_file >> id >> name >> chinese >> math >> english >> sum;
         student_Grade_file << x.id << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
     }
     student_Grade_file.close();
