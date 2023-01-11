@@ -579,6 +579,10 @@ void Save_data()
     }
     teacher_information_file.close();
 
+    student_Grade.clear();
+    student_information.clear();
+    teacher_information.clear();
+    Read_data();
 }
 
 void Read_data()
