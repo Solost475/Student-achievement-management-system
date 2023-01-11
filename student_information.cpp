@@ -21,18 +21,11 @@ class Student_Grade {
 public:
     string id, name;
     int chinese, english, math, sum;
-    Student_Grade()
-    {
-        cout << "Please enter the grade of Chinese math English:\n";
-        cin >> chinese >> math >> english;
-        cout << "Enter successfully\n";
-        sum = chinese + math + english;
-    }
 
     void output()
     {
-        cout << "name chinese math english:\n";
-        cout << name << " " << chinese << " " << math << " " << english << endl;
+        cout << "id name chinese math english:\n";
+        cout << id << " " << name << " " << chinese << " " << math << " " << english << endl;
     }
 
     void student_grade_change()
@@ -67,6 +60,10 @@ public:
         cout << "name gender id major phone address age class:\n";
         cin >> name >> gender >> id >> major >> phone >> address >> age >> classes;
         Student_Grade stu;
+        cout << "Please enter the grade Chinese math English:\n";
+        cin >> stu.chinese >> stu.math >> stu.english;
+        stu.sum = stu.chinese + stu.math + stu.english;
+        cout << "Enter successfully\n";
         stu.id = id;
         stu.name = name;
         student_Grade.push_back(stu);
@@ -85,6 +82,7 @@ public:
 
     virtual void output_all()
     {
+        //name gender id major phone address age classes
         cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age << " " << classes << endl;
     }
 
@@ -337,9 +335,9 @@ void Student_change()
 
 void Student_grade_display()
 {
-    cout << "name sum chinese math english\n";
+    cout << "id name sum chinese math english\n";
     for (auto x : student_Grade) {
-        cout << x.name << " " << x.id << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
+        cout << x.id << x.name << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
     }
 }
 
@@ -413,7 +411,6 @@ void Student_information_All()
     for (auto i = student_information.begin(); i != student_information.end(); i++) {
         i->output_all();
     }
-    system("pause");
 }
 
 void Student_grade_change()
@@ -541,12 +538,11 @@ void Read_data()
         cout << "fail to open the student_Grade_file.txt" << endl;
         system("pause");
         return;
-    } else {
-        cout << "open the file successfully" << endl;
     }
     while (student_Grade_file.peek() != EOF) {
         string id, name;
         int chinese, math, english, sum;
+        //student_Grade_file << x.id << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
         student_Grade_file >> id >> name >> chinese >> math >> english >> sum;
         Student_Grade stu;
         stu.id = id, stu.name = name, stu.chinese = chinese, stu.math = math, stu.english = english, stu.sum = sum;
@@ -560,8 +556,6 @@ void Read_data()
         cout << "fail to open the student_information_file.txt" << endl;
         system("pause");
         return;
-    } else {
-        cout << "open the file successfully" << endl;
     }
     while (student_information_file.peek() != EOF) {
         Student_Information stu;
@@ -575,8 +569,6 @@ void Read_data()
         cout << "fail to open the teacher_information_file.txt" << endl;
         system("pause");
         return;
-    } else {
-        cout << "open the file successfully" << endl;
     }
     while (teacher_information_file.peek() != EOF) {
         Teacher_Information teacher;
@@ -603,7 +595,8 @@ void Save_data()
 
     student_information_file.open("student_information_file.txt", ios::out);
     for (auto x : student_information) {
-        student_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
+        //student_information_file >> stu.name >> stu.gender >> stu.id >> stu.major >> stu.phone >> stu.address >> stu.age >> stu.classes;
+        student_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.address << " " << x.age << " " << x.classes << endl;
     }
     student_information_file.close();
 
