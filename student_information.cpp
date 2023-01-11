@@ -145,7 +145,7 @@ public:
 
     virtual void input()
     {
-        cout << "name gender id major phone address age:\n";
+        cout << "name gender id major phone address age class:\n";
         string class1;
         cin >> name >> gender >> id >> major >> phone >> address >> age >> class1;
         Teacher_Information::classes.push_back(class1);
@@ -170,7 +170,7 @@ public:
     {
         cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age << " ";
         for (auto x : Teacher_Information::classes) {
-            cout << x << " ";
+            cout << x << ",";
         }
         cout << endl;
     }
