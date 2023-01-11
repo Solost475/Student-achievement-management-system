@@ -533,39 +533,6 @@ void Teacher_information_All()
     system("pause");
 }
 
-void Save_data()
-{
-    ofstream student_Grade_file, student_information_file, teacher_information_file;
-    student_Grade_file.open("student_Grade_file.txt", ios::out);
-    for (auto x : student_Grade) {
-        student_Grade_file << x.id << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
-    }
-    student_Grade_file.close();
-    // string name, gender, id, major, phone, address, age, classes;
-
-    student_information_file.open("student_information_file.txt", ios::out);
-    for (auto x : student_information) {
-        student_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
-    }
-    student_information_file.close();
-
-    teacher_information_file.open("teacher_information_file.txt", ios::out);
-    string class1;
-    for (auto x : teacher_information) {
-        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " ";
-        for(auto y : x.Teacher_Information::classes){
-            cout << y << " ";
-        }
-        cout << endl;
-    }
-    teacher_information_file.close();
-
-    student_Grade.clear();
-    student_information.clear();
-    teacher_information.clear();
-    Read_data();
-}
-
 void Read_data()
 {
     ifstream student_Grade_file, student_information_file, teacher_information_file;
@@ -621,6 +588,39 @@ void Read_data()
         teacher_information.push_back(teacher);
     }
     teacher_information_file.close();
+}
+
+void Save_data()
+{
+    ofstream student_Grade_file, student_information_file, teacher_information_file;
+    student_Grade_file.open("student_Grade_file.txt", ios::out);
+    for (auto x : student_Grade) {
+        student_Grade_file << x.id << " " << x.name << " " << x.chinese << " " << x.math << " " << x.english << " " << x.sum << endl;
+    }
+    student_Grade_file.close();
+    // string name, gender, id, major, phone, address, age, classes;
+
+    student_information_file.open("student_information_file.txt", ios::out);
+    for (auto x : student_information) {
+        student_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " " << x.classes << endl;
+    }
+    student_information_file.close();
+
+    teacher_information_file.open("teacher_information_file.txt", ios::out);
+    string class1;
+    for (auto x : teacher_information) {
+        teacher_information_file << x.name << " " << x.gender << " " << x.id << " " << x.major << " " << x.phone << " " << x.age << " ";
+        for(auto y : x.Teacher_Information::classes){
+            cout << y << " ";
+        }
+        cout << endl;
+    }
+    teacher_information_file.close();
+
+    student_Grade.clear();
+    student_information.clear();
+    teacher_information.clear();
+    Read_data();
 }
 
 void menu()
