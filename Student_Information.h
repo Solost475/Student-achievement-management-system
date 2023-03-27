@@ -134,11 +134,11 @@ void Student_find() {
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = student_information.begin(); i != student_information.end(); i++) {
-        if (i->id == id) {
+    for (auto & i : student_information) {
+        if (i.id == id) {
             f = 1;
             cout << "The queried student information has been found\n";
-            i->output();
+            i.output();
         }
     }
     if (f == 0) {
@@ -152,10 +152,10 @@ void Student_change() {
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = student_information.begin(); i != student_information.end(); i++) {
-        if (i->id == id) {
+    for (auto & i : student_information) {
+        if (i.id == id) {
             f = 1;
-            i->change();
+            i.change();
             cout << "Succeeded in modifying the information!\n";
         }
     }
@@ -167,7 +167,7 @@ void Student_change() {
 
 void Student_grade_display() {
     cout << "id name sum chinese math english\n";
-    for (auto x: student_Grade) {
+    for (const auto& x: student_Grade) {
         cout << x.id << " " << x.name << " " << x.sum << " " << x.chinese << " " << x.math << " " << x.english << endl;
     }
     system("pause");
@@ -206,7 +206,7 @@ void Student_sort() {
 
 void Student_qualified() {
     int c1 = 0, c2 = 0, c3 = 0, n = student_Grade.size();
-    for (auto x: student_Grade) {
+    for (const auto& x: student_Grade) {
         if (x.chinese >= 60)
             c1++;
         if (x.math >= 60)
@@ -225,10 +225,10 @@ void Student_information() {
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = student_Grade.begin(); i != student_Grade.end(); i++) {
-        if (i->id == id) {
+    for (auto & i : student_Grade) {
+        if (i.id == id) {
             f = 1;
-            i->output();
+            i.output();
             break;
         }
     }
@@ -240,8 +240,8 @@ void Student_information() {
 
 void Student_information_All() {
     cout << "name gender id major phone address age classes:\n";
-    for (auto i = student_information.begin(); i != student_information.end(); i++) {
-        i->output_all();
+    for (auto & i : student_information) {
+        i.output_all();
     }
     system("pause");
 }

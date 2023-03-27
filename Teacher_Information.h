@@ -8,14 +8,14 @@ class Teacher_Information : public Student_Information {
 public:
     vector<string> classes;
 
-    virtual void input() {
+    void input() override {
         cout << "name gender id major phone address age class:\n";
         string class1;
         cin >> name >> gender >> id >> major >> phone >> address >> age >> class1;
         Teacher_Information::classes.push_back(class1);
     }
 
-    virtual void output() {
+    void output() override {
         cout << "name:" << name << endl;
         cout << "gender:" << gender << endl;
         cout << "id:" << id << endl;
@@ -24,16 +24,16 @@ public:
         cout << "address:" << address << endl;
         cout << "age:" << age << endl;
         cout << "class: ";
-        for (auto x: Teacher_Information::classes) {
+        for (const auto& x: Teacher_Information::classes) {
             cout << x << " ";
         }
         cout << endl;
     }
 
-    virtual void output_all() {
+    void output_all() override {
         cout << name << " " << gender << " " << id << " " << major << " " << phone << " " << address << " " << age
              << " ";
-        for (auto x: Teacher_Information::classes) {
+        for (const auto& x: Teacher_Information::classes) {
             cout << x << ", ";
         }
         cout << endl;
@@ -41,8 +41,8 @@ public:
 
     virtual void class_delete() {
         int j = 1, x;
-        for (auto i = Teacher_Information::classes.begin(); i != Teacher_Information::classes.end(); i++) {
-            cout << j << " " << *i << endl;
+        for (auto & classe : Teacher_Information::classes) {
+            cout << j << " " << classe << endl;
             j++;
         }
         cout << "Please enter delete classes:\n";
@@ -51,14 +51,14 @@ public:
         for (auto i = Teacher_Information::classes.begin(); i != Teacher_Information::classes.end(); i++) {
             if (x == j) {
                 Teacher_Information::classes.erase(i);
-                cout << "successflly delete class!\n";
+                cout << "successfully delete class!\n";
                 break;
             }
             j++;
         }
     }
 
-    virtual void change() {
+    void change() override {
         int x;
         cout << "Please enter the information number you want to modify:\n";
         cout << "1.name" << endl;
@@ -163,11 +163,11 @@ void Teacher_find() {
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
-        if (i->id == id) {
+    for (auto & i : teacher_information) {
+        if (i.id == id) {
             f = 1;
             cout << "The queried teacher information has been found\n";
-            i->output();
+            i.output();
         }
     }
     if (f == 0) {
@@ -181,10 +181,10 @@ void Teacher_change() {
     string id;
     cin >> id;
     int f = 0;
-    for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
-        if (i->id == id) {
+    for (auto & i : teacher_information) {
+        if (i.id == id) {
             f = 1;
-            i->change();
+            i.change();
             cout << "Succeeded in modifying the information!\n";
         }
     }
@@ -196,8 +196,8 @@ void Teacher_change() {
 
 void Teacher_information_All() {
     cout << "name gender id major phone address age classes:\n";
-    for (auto i = teacher_information.begin(); i != teacher_information.end(); i++) {
-        i->output_all();
+    for (auto & i : teacher_information) {
+        i.output_all();
     }
     system("pause");
 }

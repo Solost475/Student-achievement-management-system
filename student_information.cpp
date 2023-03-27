@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <bitset>
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -41,7 +40,6 @@ void menu() {
     switch (x) {
         case 0:
             exit(0);
-            break;
         case 1:
             Student_input();
             break;
@@ -106,8 +104,7 @@ void menu() {
 int main() {
     cout << "If there is no initial data, proceed and the file is automatically created\n";
     Read_data();
-    while (1) {
+    while (true) {
         menu();
     }
-    return 0;
 }

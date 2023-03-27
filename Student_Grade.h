@@ -10,7 +10,7 @@ public:
     string id, name;
     int chinese, english, math, sum;
 
-    void output() {
+    void output() const {
         cout << "id name chinese math english:\n";
         cout << id << " " << name << " " << chinese << " " << math << " " << english << endl;
     }
